@@ -48,6 +48,11 @@ from consistory.pipelines.pipeline_consistory import ConsiStoryPipeline
 
 from extern.dift.dift_sd import SDFeaturizer
 
+def prepare_environment(args):
+    if not os.path.exists(os.path.join(args.output_dir, "temp_dift")):
+        os.makedirs(os.path.join(args.output_dir, "temp_dift"))
+    
+
 def pre_generate_images_for_dift(args):
     height = width = args.resolution
 
@@ -558,6 +563,7 @@ if __name__ == '__main__':
     parser.add_argument("--resolution", type=int, default=512, help="Resolution")
     parser.add_argument("--enable_xformers_memory_efficient_attention", action="store_true", help="Enable xformers memory efficient attention")
     parser.add_argument("--output_dir", type=str, default="output", help="Output directory")
+    parser.add_argument("--job_id", type=str, default=None, help="Job ID")
     parser.add_argument("--device", type=str, default="cuda" if torch.cuda.is_available() else "cpu", help="Device (cuda or cpu)")
     parser.add_argument("--disable_feature_map", action="store_true", help="disable feature map")
 
@@ -593,6 +599,14 @@ if __name__ == '__main__':
     args.batch_size = len(args.prompt)       
     
     #args.reference_image = None
+
+    if args.job_id is None:
+        import datetime
+        args.job_id = f"job_{datetime.datetime.now().strftime("%Y%m%d%H%M%S")}"
+    
+    args.output_dir = os.path.join(args.output_dir, args.job_id)
+
+    prepare_environment(args)
     
     pre_generate_images_for_dift(args)
     torch.cuda.empty_cache()  
