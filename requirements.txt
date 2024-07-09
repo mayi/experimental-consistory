@@ -25,4 +25,4 @@ font_roboto
 
 # extra index url for xformers with cu118
 --extra-index-url https://download.pytorch.org/whl/cu121
-xformers
+xformers==0.0.25
