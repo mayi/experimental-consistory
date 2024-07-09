@@ -602,7 +602,7 @@ if __name__ == '__main__':
 
     if args.job_id is None:
         import datetime
-        args.job_id = f"job_{datetime.datetime.now().strftime("%Y%m%d%H%M%S")}"
+        args.job_id = f"job_{datetime.datetime.now().strftime('%Y%m%d%H%M%S')}"
     
     args.output_dir = os.path.join(args.output_dir, args.job_id)
 
