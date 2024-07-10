@@ -554,7 +554,7 @@ if __name__ == '__main__':
     parser.add_argument("--seed", type=int, default=None, help="Random seed")
     parser.add_argument("--keywords", nargs="*", type=str, default=None, help="keywords for the prompt")
     parser.add_argument("--prompt", nargs="*", type=str, default=None, help="Prompt text")
-    parser.add_argument("--negative_prompt", type=str, default="nsfw", help="Negative prompt text")
+    parser.add_argument("--negative_prompt", type=str, default=None, help="Negative prompt text")
     parser.add_argument("--reference_image", type=str, default=None, help="Reference image path")
     parser.add_argument("--mask_image", type=str, default=None, help="Mask image path")
     parser.add_argument("--num_samples", type=int, default=1, help="Number of samples")
@@ -579,7 +579,7 @@ if __name__ == '__main__':
     # args.prompt = [
     #     "a photo of a cat, eating his food while wearing a hat",  
     #     "a photo of a cat, resting in the wild, wearing his goggles",  
-    #     "a photo of a cat, “jumping over a puddle",  
+    #     "a photo of a cat, jumping over a puddle",  
     # ]
     
     if args.keywords is None:
